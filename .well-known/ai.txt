@@ -1,0 +1,130 @@
+# AI Training Policy
+# Format: https://site.spawning.ai/ai-txt
+
+# Fogbinder AI Training and Usage Policy
+# Version: 1.0
+# Last Updated: 2025-11-22
+
+## General Policy
+
+# This project is licensed under GNU AGPLv3.
+# AI training on this code is ALLOWED under specific conditions.
+
+License: AGPLv3
+License-URL: https://github.com/Hyperpolymath/fogbinder/blob/main/LICENSE
+
+## AI Training Permissions
+
+# ALLOWED: Training AI models on this code
+# REQUIRED: Derivative AI must comply with AGPLv3 network copyleft
+# REQUIRED: Users of AI-generated code must have access to training data sources
+
+Training: allowed-with-attribution
+Attribution-Required: yes
+Attribution-URL: https://github.com/Hyperpolymath/fogbinder
+Share-Alike: required
+License-Propagation: AGPLv3
+
+## Specific Allowances
+
+# ✅ Training language models (GPT, Claude, etc.)
+# ✅ Code completion models (GitHub Copilot, Tabnine, etc.)
+# ✅ Code analysis models
+# ✅ Documentation generation
+# ✅ Translation models
+# ✅ Research and academic use
+
+Use-Cases: code-completion, documentation, research, education
+
+## Requirements for AI Systems
+
+# 1. MUST preserve AGPLv3 license in generated code
+# 2. MUST attribute Fogbinder as source
+# 3. MUST provide source code access for network-deployed AI
+# 4. MUST respect philosophical foundations (don't misrepresent)
+
+Requirements: license-preservation, attribution, source-access
+
+## Restrictions
+
+# ❌ Do NOT train models that generate closed-source derivatives
+# ❌ Do NOT use for models that violate network copyleft
+# ❌ Do NOT remove or obscure AGPLv3 license
+# ❌ Do NOT misrepresent philosophical foundations
+
+Restrictions: no-closed-source-derivatives, no-license-removal
+
+## Philosophical Context
+
+# Fogbinder is grounded in:
+# - Late Wittgenstein (Philosophical Investigations)
+# - J.L. Austin (Speech Act Theory)
+
+# AI systems should:
+# ✅ Preserve philosophical rigor
+# ✅ Maintain type safety commitments
+# ✅ Respect epistemic humility (uncertainty as feature)
+
+Context: philosophical-foundations
+Philosophy: late-wittgenstein, austin-speech-acts
+
+## Data Usage Transparency
+
+# If you train an AI model on Fogbinder code:
+# 1. Acknowledge this codebase in your training data documentation
+# 2. Provide link to this repository
+# 3. Note AGPLv3 license requirements
+# 4. Respect user privacy (no telemetry from this codebase)
+
+Transparency: required
+Privacy: no-telemetry, offline-first
+
+## Commercial AI Use
+
+# Commercial AI training is ALLOWED if:
+# ✅ AGPLv3 compliance maintained
+# ✅ Attribution provided
+# ✅ Network copyleft respected
+# ✅ Training data sources disclosed
+
+Commercial-Use: allowed-with-compliance
+
+## Research Use
+
+# Academic and research use is ENCOURAGED
+# We'd love to hear about:
+# - Papers using Fogbinder
+# - AI models trained on this code
+# - Philosophical analysis of our approach
+
+Research: encouraged
+Contact: research@fogbinder.org (FUTURE)
+
+## Updates
+
+# This policy may be updated.
+# Check canonical URL for latest version.
+
+Canonical-URL: https://github.com/Hyperpolymath/fogbinder/.well-known/ai.txt
+Version: 1.0
+Last-Updated: 2025-11-22
+Expires: 2026-11-22
+
+## Contact
+
+Contact: https://github.com/Hyperpolymath/fogbinder/discussions
+Security-Contact: https://github.com/Hyperpolymath/fogbinder/security/advisories/new
+
+---
+
+# Human-Readable Summary
+
+Fogbinder is AGPLv3 licensed. You CAN train AI on this code, BUT:
+- Derivative works must remain AGPLv3
+- Attribution required
+- Network copyleft applies to AI services
+- Philosophical foundations should be respected
+
+Questions? Open a GitHub Discussion.
+
+# The fog is not an obstacle. It's the medium of inquiry. 🌫️

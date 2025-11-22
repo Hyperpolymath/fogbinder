@@ -1,0 +1,215 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, claude/* ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deno-version: ['1.40.x', '1.41.x']
+        node-version: ['18.x', '20.x']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: ${{ matrix.deno-version }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Compile ReScript
+      run: npm run res:build
+
+    - name: Run tests
+      run: deno task test
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-deno-${{ matrix.deno-version }}-node-${{ matrix.node-version }}
+        path: coverage/
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: '1.x'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Deno lint
+      run: deno lint
+
+    - name: Deno format check
+      run: deno fmt --check
+
+    - name: ReScript format check
+      run: npx rescript format -check
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: '1.x'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: dist/
+
+  rsr-compliance:
+    name: RSR Compliance Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: '1.x'
+
+    - name: Verify RSR compliance
+      run: deno run --allow-read scripts/verify_rsr.ts
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run npm audit
+      run: npm audit --audit-level=moderate
+
+    - name: Check for hardcoded secrets
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: ${{ github.event.repository.default_branch }}
+        head: HEAD
+
+  accessibility:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check CSS accessibility
+      run: |
+        # Basic accessibility checks for CSS
+        grep -r "outline: none" assets/ && exit 1 || echo "No outline:none found"
+        grep -r "focus.*outline.*0" assets/ && exit 1 || echo "No focus outline disabled"
+
+  documentation:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Verify required docs exist
+      run: |
+        test -f README.md || exit 1
+        test -f SECURITY.md || exit 1
+        test -f CONTRIBUTING.md || exit 1
+        test -f CODE_OF_CONDUCT.md || exit 1
+        test -f MAINTAINERS.md || exit 1
+        test -f CHANGELOG.md || exit 1
+        test -f TPCF.md || exit 1
+        test -f .well-known/security.txt || exit 1
+        test -f .well-known/ai.txt || exit 1
+        test -f .well-known/humans.txt || exit 1
+        echo "All required documentation files present"
+
+    - name: Check documentation freshness
+      run: |
+        # Ensure CHANGELOG.md was updated (if not initial commit)
+        if [ "${{ github.event_name }}" == "pull_request" ]; then
+          git diff --name-only origin/main | grep -q CHANGELOG.md || echo "Consider updating CHANGELOG.md"
+        fi
+
+  philosophy:
+    name: Philosophical Integrity Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Verify philosophical foundations
+      run: |
+        # Ensure key philosophical concepts are preserved
+        grep -r "Wittgenstein" PHILOSOPHY.md || exit 1
+        grep -r "Austin" PHILOSOPHY.md || exit 1
+        grep -r "language game" src/ || echo "Warning: Language game references missing"
+        grep -r "speech act" src/ || echo "Warning: Speech act references missing"
+        echo "Philosophical foundations verified"
