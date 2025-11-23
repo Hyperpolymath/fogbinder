@@ -175,6 +175,201 @@ class RSRVerifier {
       required: true,
       check: async () => await this.fileExists("scripts/verify_rsr.ts"),
     });
+
+    // ========== PLATINUM TIER REQUIREMENTS ==========
+
+    // Category 12: Test Coverage (100% for Platinum)
+    this.checks.push({
+      name: "All ReScript modules have tests",
+      category: "Test Coverage (Platinum)",
+      required: true,
+      check: async () => {
+        const resFiles = await this.findFilesRecursive("src", ".res");
+        const testFiles = await this.findFilesRecursive("src", ".test.ts");
+
+        // Core modules that should have tests
+        const coreModules = [
+          "EpistemicState",
+          "SpeechAct",
+          "FamilyResemblance",
+          "ContradictionDetector",
+          "MoodScorer",
+          "MysteryClustering",
+          "FogTrailVisualizer",
+          "Fogbinder",
+          "ZoteroBindings",
+        ];
+
+        for (const module of coreModules) {
+          const hasTest = testFiles.some((t) => t.includes(module + ".test.ts"));
+          if (!hasTest) {
+            console.log(`    Missing test for ${module}`);
+            return false;
+          }
+        }
+
+        return true;
+      },
+    });
+
+    // Category 13: Formal Verification (Platinum)
+    this.checks.push({
+      name: "TLA+ specifications exist",
+      category: "Formal Verification (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("formal-verification/tla/ContradictionDetection.tla") &&
+        await this.fileExists("formal-verification/tla/EpistemicStateMerge.tla") &&
+        await this.fileExists("formal-verification/tla/FamilyResemblance.tla"),
+    });
+
+    this.checks.push({
+      name: "Formal verification README",
+      category: "Formal Verification (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("formal-verification/README.md"),
+    });
+
+    // Category 14: Property-Based Testing (Platinum)
+    this.checks.push({
+      name: "Property tests for EpistemicState",
+      category: "Property Testing (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("src/core/EpistemicState.property.test.ts"),
+    });
+
+    this.checks.push({
+      name: "Property tests for ContradictionDetector",
+      category: "Property Testing (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("src/engine/ContradictionDetector.property.test.ts"),
+    });
+
+    this.checks.push({
+      name: "Property tests for FamilyResemblance",
+      category: "Property Testing (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("src/core/FamilyResemblance.property.test.ts"),
+    });
+
+    this.checks.push({
+      name: "Property testing documentation",
+      category: "Property Testing (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("docs/PROPERTY_TESTING.md"),
+    });
+
+    // Category 15: Performance Benchmarks (Platinum)
+    this.checks.push({
+      name: "Epistemic state benchmarks",
+      category: "Performance Benchmarks (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("benchmarks/epistemic_state.bench.ts"),
+    });
+
+    this.checks.push({
+      name: "Contradiction detection benchmarks",
+      category: "Performance Benchmarks (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("benchmarks/contradiction_detection.bench.ts"),
+    });
+
+    this.checks.push({
+      name: "Full pipeline benchmarks",
+      category: "Performance Benchmarks (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("benchmarks/full_pipeline.bench.ts"),
+    });
+
+    this.checks.push({
+      name: "Benchmark runner",
+      category: "Performance Benchmarks (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("benchmarks/run_all.ts"),
+    });
+
+    this.checks.push({
+      name: "Benchmark documentation",
+      category: "Performance Benchmarks (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("benchmarks/README.md"),
+    });
+
+    // Category 16: Security Audit (Platinum)
+    this.checks.push({
+      name: "Security audit checklist",
+      category: "Security Audit (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("security/AUDIT_CHECKLIST.md"),
+    });
+
+    this.checks.push({
+      name: "Security audit framework README",
+      category: "Security Audit (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("security/README.md"),
+    });
+
+    this.checks.push({
+      name: "Security audit directories",
+      category: "Security Audit (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("security/audits") &&
+        await this.fileExists("security/scans"),
+    });
+
+    // Category 17: Dynamic Cookbooks (Platinum)
+    this.checks.push({
+      name: "Complete cookbook",
+      category: "Dynamic Cookbooks (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("docs/cookbooks/COMPLETE_COOKBOOK.md"),
+    });
+
+    this.checks.push({
+      name: "Beginner cookbook",
+      category: "Dynamic Cookbooks (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("docs/cookbooks/BEGINNER_COOKBOOK.md"),
+    });
+
+    this.checks.push({
+      name: "Intermediate cookbook",
+      category: "Dynamic Cookbooks (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("docs/cookbooks/INTERMEDIATE_COOKBOOK.md"),
+    });
+
+    this.checks.push({
+      name: "Advanced cookbook",
+      category: "Dynamic Cookbooks (Platinum)",
+      required: true,
+      check: async () =>
+        await this.fileExists("docs/cookbooks/ADVANCED_COOKBOOK.md"),
+    });
+
+    this.checks.push({
+      name: "Cookbook generator",
+      category: "Dynamic Cookbooks (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("scripts/generate_cookbooks.ts"),
+    });
+
+    this.checks.push({
+      name: "Cookbooks README",
+      category: "Dynamic Cookbooks (Platinum)",
+      required: true,
+      check: async () => await this.fileExists("docs/cookbooks/README.md"),
+    });
   }
 
   private async fileExists(path: string): Promise<boolean> {
@@ -219,6 +414,27 @@ class RSRVerifier {
       }
     } catch {
       // Directory doesn't exist
+    }
+
+    return files;
+  }
+
+  private async findFilesRecursive(dir: string, extension: string): Promise<string[]> {
+    const files: string[] = [];
+
+    try {
+      for await (const entry of Deno.readDir(dir)) {
+        const path = `${dir}/${entry.name}`;
+
+        if (entry.isFile && entry.name.endsWith(extension)) {
+          files.push(path);
+        } else if (entry.isDirectory) {
+          const subFiles = await this.findFilesRecursive(path, extension);
+          files.push(...subFiles);
+        }
+      }
+    } catch {
+      // Directory doesn't exist or permission denied
     }
 
     return files;
