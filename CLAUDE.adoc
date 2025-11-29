@@ -1,0 +1,790 @@
+= CLAUDE.adoc - AI Assistant Guide for Fogbinder
+:toc: left
+:toclevels: 4
+:icons: font
+:source-highlighter: rouge
+
+== Project Overview
+
+**Fogbinder** is a Zotero plugin designed to illuminate epistemic ambiguity and emotional nuance in research. Rather than treating uncertainty as a flaw, Fogbinder embraces contradiction, mood, and mystery as valuable dimensions of scholarly exploration.
+
+=== Core Philosophy
+
+* Ambiguity is a feature, not a bug
+* Contradictions invite deeper analysis
+* Emotional tone matters in research
+* Accessibility should never be compromised
+* Privacy and security are fundamental rights
+
+=== Key Features
+
+1. **Contradiction Detection** - Identify clashing ideas across sources
+2. **Mood Scoring** - Annotate sources by emotional tone
+3. **Mystery Clustering** - Surface speculative/ambiguous references
+4. **FogTrail Visualization** - Network map of epistemic opacity
+
+'''
+
+== Repository Structure
+
+[source]
+----
+fogbinder/
+├── .git/                           # Git repository metadata
+├── .gitignore                      # Git ignore patterns
+├── assets/                         # Static assets
+│   └── styles.css                  # Accessibility-focused CSS
+├── benchmarks/                     # Performance benchmarks
+│   ├── epistemic_state.bench.ts
+│   ├── contradiction_detection.bench.ts
+│   ├── full_pipeline.bench.ts
+│   └── run_all.ts
+├── docs/                           # Documentation
+│   └── cookbooks/                  # User cookbooks
+├── formal-verification/            # Formal verification
+│   └── proofs/                     # TLA+/Coq proofs
+├── localization/                   # Internationalization
+│   └── en-US.json                  # English (US) translations
+├── scripts/                        # Build/utility scripts
+├── security/                       # Security documentation
+│   ├── CRYPTOGRAPHY.adoc
+│   ├── GIT_SSH_CONFIG.adoc
+│   ├── TLS_SSL_CONFIG.adoc
+│   ├── BROWSER_FUTUREPROOFING.adoc
+│   └── AUDIT_CHECKLIST.adoc
+├── src/                            # Source code (ReScript)
+│   ├── Fogbinder.res               # Main entry point
+│   ├── EpistemicState.res
+│   ├── ContradictionDetector.res
+│   ├── MoodScorer.res
+│   ├── FogTrail.res
+│   ├── wasm/                       # Rust WASM modules
+│   │   ├── contradiction_detector.rs
+│   │   ├── graph_algorithms.rs
+│   │   ├── string_similarity.rs
+│   │   └── crypto/
+│   │       ├── ed448.rs
+│   │       ├── shake256.rs
+│   │       ├── kyber1024.rs
+│   │       └── argon2id.rs
+│   └── bindings/                   # ReScript bindings
+├── flake.nix                       # Nix flake
+├── justfile                        # Command runner (100+ recipes)
+├── fogbinder.ncl                   # Nickel configuration
+├── LICENSE.txt                     # Dual MIT/AGPL license
+├── LICENSE_DUAL.adoc               # Dual license documentation
+├── manifest.json                   # Zotero plugin manifest
+└── README.adoc                     # Public-facing documentation
+----
+
+'''
+
+== Development Status
+
+**Current Phase:** Architecture Migration
+
+* ✅ Dual MIT/AGPL licensing with Palimpsest overlay
+* ✅ ReScript + WASM architecture designed
+* ✅ Post-quantum cryptography specified
+* ✅ Security documentation complete
+* ✅ RSR Rhodium Standard achieved
+* ⏳ TypeScript elimination in progress
+* ⏳ Node.js/npm removal in progress
+* ⏳ ReScript implementation in progress
+* ⏳ WASM modules in progress
+* ⏳ Massive justfile CLI in progress
+
+=== What Needs to Be Built
+
+* [ ] Complete TypeScript → ReScript migration
+* [ ] Remove all Node.js/npm dependencies
+* [ ] Implement Rust WASM modules
+* [ ] Create Nickel configuration files
+* [ ] Build massive justfile (100+ recipes)
+* [ ] Implement post-quantum crypto in WASM
+* [ ] Convert all .md docs to .adoc (except exceptions)
+* [ ] Property-based testing in ReScript
+* [ ] Performance benchmarks in Deno
+
+'''
+
+== Technology Stack
+
+=== Languages
+
+* **ReScript** - Primary language (100% type-safe, compiles to JavaScript)
+* **Rust** - WASM modules for performance-critical operations
+* **Nickel** - Configuration language (.ncl files)
+* **CSS** - Styling with accessibility focus
+* **JSON** - Localization and manifest
+
+=== **ABSOLUTELY NO:**
+
+* ❌ **TypeScript** - Eliminated completely
+* ❌ **Node.js** - Removed entirely
+* ❌ **npm** - No package.json, no node_modules
+* ❌ **JavaScript** - Minimized (only compiled output from ReScript)
+
+=== Runtime & Tools
+
+* **Deno** - JavaScript/WASM runtime (replaces Node.js)
+* **ReScript compiler** - `.res` → `.bs.js` compilation
+* **Cargo** - Rust build tool for WASM modules
+* **just** - Command runner (replaces make/npm scripts)
+* **Nix** - Reproducible builds
+* **Zotero** - Plugin architecture
+
+=== Dependencies (ReScript/Rust)
+
+All dependencies are MIT or Apache-2.0 compatible:
+
+* `@rescript/core` - ReScript standard library
+* `rescript` - ReScript compiler
+* `wasm-bindgen` - Rust ↔ JavaScript bindings
+* `pqcrypto-kyber` - Kyber-1024 post-quantum KEM
+* `ed448-goldilocks` - Ed448 signatures
+* `sha3` - SHAKE256 hash function
+* `blake3` - BLAKE3 hash function
+* `rust-argon2` - Argon2id password hashing
+
+'''
+
+== Key Conventions
+
+=== Code Style
+
+* **ReScript strict mode** - 100% type safety enforced
+* **Semantic naming** - Prioritize clarity over brevity
+* **Accessibility-first** - ARIA labels, semantic HTML, keyboard navigation
+* **Security-conscious** - Input sanitization, no external tracking
+* **Functional programming** - Immutable data, pure functions
+* **No emojis in code** - Professional unless explicitly requested
+
+=== Naming Conventions
+
+Based on localization keys:
+
+* Tags: `tag.contradiction`, `tag.mystery`, `tag.mood`
+* UI elements: `ui.aria_description`
+* Use dot notation for namespacing
+
+ReScript naming:
+
+* Types: `PascalCase` (e.g., `EpistemicState`)
+* Functions: `camelCase` (e.g., `detectContradictions`)
+* Variants: `PascalCase` (e.g., `Known`, `Probable`)
+* Module names: `PascalCase` (e.g., `ContradictionDetector`)
+
+=== File Organization
+
+* Source code: `src/` (.res files)
+* WASM modules: `src/wasm/` (.rs files)
+* Bindings: `src/bindings/` (ReScript FFI)
+* Styles: `assets/` (.css files)
+* Translations: `localization/` (ISO codes: `en-US`, `fr-FR`)
+* Tests: `src/__tests__/` (.test.res files)
+* Docs: `docs/` (.adoc files)
+* Security: `security/` (.adoc files)
+* Benchmarks: `benchmarks/` (.bench.ts for now, migrate to .res)
+
+'''
+
+== Security & Privacy Requirements
+
+=== License Compliance (Dual MIT/AGPL)
+
+Users **choose one** license:
+
+==== MIT License:
+
+* Maximum freedom
+* Permissive
+* Can create proprietary derivatives
+
+==== AGPL-3.0:
+
+* Network copyleft - Hosted versions must provide source
+* Derivative works must be AGPL-3.0
+* Ensures software freedom
+
+==== Palimpsest License:
+
+* Philosophical overlay on both licenses
+* Commits to epistemic humility, accessibility, privacy
+* Not legally enforceable (expresses values)
+
+See link:LICENSE_DUAL.adoc[LICENSE_DUAL.adoc] for full details.
+
+=== Security Practices
+
+Per link:SECURITY.md[SECURITY.md] commitments:
+
+1. **Input sanitization** - Prevent injection attacks
+2. **No API key storage** - Never persist credentials
+3. **No external data collection** - Respect user privacy
+4. **No tracking scripts** - Strict `.gitignore`
+5. **Open-source transparency** - All code publicly auditable
+6. **Post-quantum cryptography** - Ed448, Kyber-1024, SHAKE256
+7. **Git SSH-only** - All operations via SSH
+8. **TLS 1.3** - Strong ciphers, OCSP stapling, HSTS preload
+
+=== Prohibited Actions
+
+* Storing sensitive data without encryption
+* Making external API calls without explicit user consent
+* Adding telemetry or analytics
+* Weakening input validation
+* Introducing XSS, SQL injection, or command injection vulnerabilities
+* Using weak cryptography (MD5, SHA-1, DES, 3DES)
+* Accepting HTTPS certificates without verification
+* Using TypeScript, Node.js, or npm
+
+'''
+
+== Accessibility Requirements
+
+=== WCAG Compliance
+
+Target: **WCAG 2.1 Level AA minimum**
+
+=== Implementation Standards
+
+1. **Semantic HTML** - Proper heading hierarchy, landmarks, lists
+2. **ARIA labels** - All interactive elements must have accessible names
+3. **Keyboard navigation** - Full functionality without mouse
+4. **Focus indicators** - Visible 2px solid outline (#005fcc)
+5. **High contrast mode** - Support for `.high-contrast` class
+6. **Screen reader testing** - Verify with NVDA/JAWS/VoiceOver
+7. **Color independence** - Never rely solely on color to convey information
+8. **`prefers-reduced-motion`** - Respect user preferences
+9. **`prefers-color-scheme`** - Support dark mode
+10. **`prefers-contrast`** - High contrast support
+
+=== CSS Accessibility Rules
+
+[source,css]
+----
+:focus {
+  outline: 2px solid #005fcc;
+}
+
+.high-contrast {
+  background-color: #000;
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --fg: #f0f0f0;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --contrast-ratio: 7:1; /* AAA */
+  }
+}
+----
+
+'''
+
+== Localization
+
+=== Current Support
+
+* English (US) - `localization/en-US.json`
+
+=== Adding New Languages
+
+1. Create `localization/{ISO-code}.json`
+2. Copy structure from `en-US.json`
+3. Translate all values, preserve keys
+4. Update `manifest.json` if needed
+
+=== Translation Keys
+
+[source,json]
+----
+{
+  "tag.contradiction": "Contradiction Detected",
+  "tag.mystery": "Unresolved Mystery",
+  "tag.mood": "Mood Score",
+  "ui.aria_description": "Fogbinder helps visualize contradictions and tone in your research"
+}
+----
+
+'''
+
+== Git Workflow
+
+=== Branch Strategy
+
+* **Main branch** - Production-ready code
+* **Feature branches** - Descriptive names: `feature/mood-scoring`, `fix/aria-labels`
+* **Claude branches** - AI-assisted work: `claude/claude-md-{session-id}`
+
+=== Commit Message Style
+
+**Preferred format:**
+
+* Imperative mood ("Add", "Fix", "Update", not "Added", "Fixed")
+* Capitalized first word
+* No period at end
+* Reference issue numbers when applicable: "Fix contradiction detection (#42)"
+
+=== Pre-Commit Checks
+
+Ensure before committing:
+
+* [ ] No secrets in code (.env, API keys)
+* [ ] ReScript compiles without errors
+* [ ] All tests pass
+* [ ] Linting passes (via `just lint`)
+* [ ] Accessibility checks pass
+* [ ] New features have tests
+* [ ] Security audit passes (via `just security-audit`)
+
+=== Git Operations (SSH ONLY)
+
+**CRITICAL:** All Git operations must use SSH, **never HTTPS**.
+
+[source,bash]
+----
+# Clone via SSH (correct)
+git clone git@github.com:username/fogbinder.git
+
+# Clone via HTTPS (FORBIDDEN)
+git clone https://github.com/username/fogbinder.git
+----
+
+See link:security/GIT_SSH_CONFIG.adoc[GIT_SSH_CONFIG.adoc] for SSH configuration.
+
+'''
+
+== AI Assistant Guidelines
+
+=== When Working on This Codebase
+
+==== DO:
+
+1. **Read before writing** - Always read existing files before modifying
+2. **Preserve accessibility** - Maintain ARIA labels, semantic HTML, keyboard support
+3. **Sanitize inputs** - Validate and escape all user-provided data
+4. **Follow dual licensing** - Ensure modifications compatible with MIT and AGPL
+5. **Add localization keys** - New UI text goes in `localization/*.json`
+6. **Comment complex logic** - Explain non-obvious algorithms
+7. **Test accessibility** - Verify keyboard navigation and screen reader compatibility
+8. **Use ReScript types** - 100% type safety enforced
+9. **Ask before major changes** - Clarify architectural decisions with the user
+10. **Use AsciiDoc** - All documentation in .adoc format (except exceptions)
+11. **Git SSH-only** - All Git URLs must use `git@github.com:`, not `https://`
+
+==== DON'T:
+
+1. **Add telemetry** - No analytics, tracking, or external calls without explicit consent
+2. **Store secrets** - Never commit API keys, credentials, or tokens
+3. **Use emojis in code** - Keep professional unless explicitly requested
+4. **Break accessibility** - Don't remove ARIA labels or keyboard support
+5. **Ignore localization** - Hardcoded strings should be rare and documented
+6. **Over-engineer** - Keep solutions simple and focused
+7. **Skip security** - Input validation is not optional
+8. **Use TypeScript** - **ABSOLUTELY FORBIDDEN** - Use ReScript only
+9. **Use Node.js/npm** - **ABSOLUTELY FORBIDDEN** - Use Deno only
+10. **Use weak crypto** - No MD5, SHA-1, DES, or custom algorithms
+11. **Create Markdown docs** - Use AsciiDoc (.adoc) except for exceptions
+
+=== Exceptions to AsciiDoc Rule
+
+These files **MUST** remain in their original format:
+
+* `SECURITY.md` - Required for security.txt compatibility
+* `humans.md` - Required for .well-known/humans.txt format
+* `LICENSE.txt` - Legal requirement for plain text
+* `funding.yml` - GitHub-specific YAML format
+
+**All other documentation must be AsciiDoc.**
+
+'''
+
+== Common Tasks
+
+=== Adding a New Feature
+
+1. Read relevant existing code
+2. Add localization keys to `localization/en-US.json`
+3. Implement in ReScript with proper types
+4. Add WASM module if performance-critical
+5. Add ARIA labels and semantic HTML
+6. Write property-based tests in ReScript
+7. Update README.adoc if user-facing
+8. Run `just quality` to verify
+9. Commit with descriptive message
+10. Push via SSH
+
+=== Fixing a Bug
+
+1. Reproduce the issue
+2. Identify root cause
+3. Fix with minimal changes
+4. Add regression test
+5. Verify accessibility not broken
+6. Run `just test` and `just quality`
+7. Commit with "Fix: {description}"
+
+=== Refactoring
+
+1. Ensure tests exist first
+2. Make incremental changes
+3. Run tests after each change
+4. Preserve public API
+5. Update comments/docs if needed
+6. Run `just quality` before committing
+
+=== Converting TypeScript to ReScript
+
+1. Read the TypeScript file completely
+2. Identify types and interfaces
+3. Convert to ReScript types and variants
+4. Implement functions in ReScript
+5. Add ReScript tests
+6. Verify output matches TypeScript
+7. Delete TypeScript file
+8. Update build system
+
+'''
+
+== ReScript-Specific Guidance
+
+=== Expected Patterns
+
+[source,rescript]
+----
+// Module structure
+module EpistemicState = {
+  // Type definition
+  type certaintyLevel =
+    | Known
+    | Probable(float)
+    | Vague
+    | Ambiguous
+    | Mysterious
+    | Contradictory
+
+  type t = {
+    certainty: certaintyLevel,
+    context: string,
+    evidence: array<string>,
+    timestamp: option<Js.Date.t>,
+  }
+
+  // Constructor
+  let make = (certainty, context, evidence, timestamp) => {
+    certainty,
+    context,
+    evidence,
+    timestamp,
+  }
+
+  // Pure function
+  let isUncertain = (state: t): bool => {
+    switch state.certainty {
+    | Known => false
+    | Probable(_) | Vague | Ambiguous | Mysterious | Contradictory => true
+    }
+  }
+
+  // Merge operation
+  let merge = (state1: t, state2: t): t => {
+    // Implementation
+  }
+}
+----
+
+=== Accessibility-First UI
+
+[source,rescript]
+----
+// DOM manipulation with accessibility
+module UI = {
+  @val external document: Dom.document = "document"
+
+  let createModal = (title: string): Dom.element => {
+    let modal = document->createElement("div")
+    modal->setAttribute("role", "dialog")
+    modal->setAttribute("aria-label", title)
+    modal->setAttribute("tabindex", "-1")
+    modal
+  }
+
+  let createButton = (label: string, onClick: unit => unit): Dom.element => {
+    let button = document->createElement("button")
+    button->setAttribute("type", "button")
+    button->setAttribute("aria-label", label)
+    button->addEventListener("click", _ => onClick())
+    button
+  }
+}
+----
+
+=== Input Sanitization
+
+[source,rescript]
+----
+module Security = {
+  let sanitizeInput = (input: string): string => {
+    input
+    ->Js.String2.replaceByRe(%re("/<" /g), "&lt;")
+    ->Js.String2.replaceByRe(%re("/>/g"), "&gt;")
+    ->Js.String2.replaceByRe(%re("/\"/g"), "&quot;")
+    ->Js.String2.replaceByRe(%re("/'/g"), "&#x27;")
+  }
+
+  let validateLength = (input: string, maxLength: int): result<string, string> => {
+    if Js.String2.length(input) > maxLength {
+      Error(`Input exceeds maximum length of ${Belt.Int.toString(maxLength)}`)
+    } else {
+      Ok(input)
+    }
+  }
+}
+----
+
+=== WASM Bindings
+
+[source,rescript]
+----
+// Bindings to Rust WASM module
+module WasmCrypto = {
+  type publicKey = array<int> // 57 bytes for Ed448
+  type secretKey = array<int> // 57 bytes for Ed448
+  type signature = array<int> // 114 bytes for Ed448
+
+  @module("./wasm/crypto/ed448.wasm")
+  external sign: (secretKey, array<int>) => signature = "ed448_sign"
+
+  @module("./wasm/crypto/ed448.wasm")
+  external verify: (publicKey, array<int>, signature) => bool = "ed448_verify"
+
+  @module("./wasm/crypto/shake256.wasm")
+  external shake256: (array<int>, int) => array<int> = "shake256_hash"
+
+  @module("./wasm/crypto/kyber1024.wasm")
+  external kyberKeypair: unit => (array<int>, array<int>) = "kyber1024_keypair"
+}
+----
+
+'''
+
+== Testing Priorities
+
+1. **Accessibility** - Keyboard navigation, screen reader announcements
+2. **Security** - Input validation, XSS prevention, crypto correctness
+3. **Core features** - Contradiction detection, mood scoring, clustering
+4. **Edge cases** - Empty inputs, malformed data, large datasets
+5. **Localization** - All UI strings use translation keys
+6. **Property-based testing** - Generative tests for all pure functions
+7. **Performance** - Benchmarks for critical operations
+8. **Formal verification** - TLA+/Coq proofs for critical algorithms
+
+=== Property-Based Testing in ReScript
+
+[source,rescript]
+----
+// EpistemicState.test.res
+module EpistemicStateTest = {
+  open EpistemicState
+
+  // Property: Merge is commutative
+  let testMergeCommutativity = () => {
+    let state1 = make(Known, "Context A", ["Evidence A"], None)
+    let state2 = make(Probable(0.8), "Context B", ["Evidence B"], None)
+
+    let mergeAB = merge(state1, state2)
+    let mergeBA = merge(state2, state1)
+
+    assert(mergeAB.certainty == mergeBA.certainty)
+  }
+
+  // Property: Merge preserves evidence
+  let testMergePreservesEvidence = () => {
+    let state1 = make(Known, "Context", ["A", "B"], None)
+    let state2 = make(Probable(0.5), "Context", ["C"], None)
+
+    let merged = merge(state1, state2)
+
+    assert(Belt.Array.length(merged.evidence) >= 3)
+  }
+
+  // Run all tests
+  let runTests = () => {
+    testMergeCommutativity()
+    testMergePreservesEvidence()
+    Js.Console.log("✅ All EpistemicState tests passed")
+  }
+}
+----
+
+'''
+
+== Documentation Standards
+
+* **Code comments** - Explain "why", not "what"
+* **ReScript doc comments** - Use `/** ... */` for public APIs
+* **AsciiDoc** - All user-facing documentation
+* **README.adoc** - User-facing instructions
+* **CLAUDE.adoc** - Technical guidance for AI assistants (this file)
+* **Security docs** - Complete specifications in `security/`
+
+'''
+
+== Project-Specific Terminology
+
+* **Fogbinder** - The plugin name (not "FogBinder" or "fog-binder")
+* **FogTrail** - The network visualization feature
+* **Epistemic opacity** - Uncertainty or ambiguity in knowledge
+* **Mood scoring** - Emotional tone annotation
+* **Mystery clustering** - Grouping speculative/ambiguous content
+* **Contradiction detection** - Identifying conflicting ideas across sources
+* **Palimpsest** - Layered meaning (philosophical concept)
+* **ReScript** - Primary language (not "ReasonML")
+* **WASM** - WebAssembly (performance-critical modules)
+
+'''
+
+== Development Workflow
+
+=== Prerequisites
+
+[source,bash]
+----
+# Install Deno
+curl -fsSL https://deno.land/install.sh | sh
+
+# Install ReScript
+npm install -g rescript  # Last npm command, then delete npm
+
+# Install Rust + Cargo
+curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh
+
+# Install just
+cargo install just
+
+# Install Nix (optional, for reproducible builds)
+curl -L https://nixos.org/nix/install | sh
+----
+
+=== Build Commands
+
+[source,bash]
+----
+# View all available recipes
+just --list
+
+# Build ReScript
+just build-rescript
+
+# Build WASM modules
+just build-wasm
+
+# Build everything
+just build
+
+# Development mode (watch)
+just dev
+
+# Run tests
+just test
+
+# Run benchmarks
+just bench
+
+# Quality checks (lint + format + type-check)
+just quality
+
+# Security audit
+just security-audit
+
+# Run all checks before commit
+just pre-commit
+
+# Build Zotero plugin (.xpi)
+just build-plugin
+
+# Install to Zotero
+just install-zotero
+----
+
+See `justfile` for 100+ recipes.
+
+=== Deployment (Zotero Plugin)
+
+1. Build production bundle: `just build --release`
+2. Create `.xpi` file: `just build-plugin`
+3. Test in local Zotero: `just install-zotero`
+4. Run security audit: `just security-audit`
+5. Verify RSR Rhodium compliance: `just verify-rsr`
+6. Publish to Zotero plugin registry (when ready)
+
+'''
+
+== Resources
+
+=== ReScript Development
+
+* link:https://rescript-lang.org/[ReScript Official Site]
+* link:https://rescript-lang.org/docs/manual/latest/introduction[ReScript Manual]
+* link:https://rescript-lang.org/docs/react/latest/introduction[ReScript React]
+* link:https://forum.rescript-lang.org/[ReScript Forum]
+
+=== Rust/WASM Development
+
+* link:https://rustwasm.github.io/[Rust and WebAssembly]
+* link:https://rustwasm.github.io/wasm-bindgen/[wasm-bindgen Guide]
+* link:https://developer.mozilla.org/en-US/docs/WebAssembly[MDN WebAssembly Docs]
+
+=== Zotero Development
+
+* link:https://www.zotero.org/support/dev/client_coding/plugin_development[Zotero Plugin Development]
+* link:https://www.zotero.org/support/dev/client_coding/javascript_api[Zotero JavaScript API]
+
+=== Accessibility
+
+* link:https://www.w3.org/WAI/WCAG21/quickref/[WCAG 2.1 Guidelines]
+* link:https://www.w3.org/WAI/ARIA/apg/[ARIA Authoring Practices]
+* link:https://webaim.org/[WebAIM Resources]
+
+=== Cryptography
+
+* link:https://csrc.nist.gov/Projects/post-quantum-cryptography[NIST Post-Quantum Cryptography]
+* link:https://datatracker.ietf.org/doc/html/rfc8032[RFC 8032 - EdDSA]
+* link:https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf[FIPS 202 - SHA-3]
+
+=== Security
+
+* link:https://owasp.org/www-project-top-ten/[OWASP Top 10]
+* link:https://securityheaders.com/[Security Headers Scanner]
+* link:https://observatory.mozilla.org/[Mozilla Observatory]
+
+=== Licensing
+
+* link:https://opensource.org/licenses/MIT[MIT License]
+* link:https://www.gnu.org/licenses/agpl-3.0.en.html[AGPL-3.0 License]
+* link:https://spdx.dev/[SPDX License Identifiers]
+
+'''
+
+**Last Updated:** 2025-11-29 +
+**Project Status:** Architecture Migration +
+**License:** MIT OR AGPL-3.0 (with Palimpsest) +
+**Primary Language:** ReScript +
+**Runtime:** Deno +
+**RSR Tier:** Rhodium +
+**Author:** Jonathan
