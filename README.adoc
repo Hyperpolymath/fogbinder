@@ -5,6 +5,8 @@
 :source-highlighter: rouge
 :experimental:
 
+link:https://github.com/hyperpolymath/rhodium-standard-repositories[image:badges/rhodium.svg[RSR Rhodium,align=center]]
+
 **Fogbinder** is a Zotero plugin designed for those who seek nuance in their research. It illuminates contradiction, emotional tone, and unresolved ambiguity within citations—making murk not something to fear, but something to follow.
 
 '''
