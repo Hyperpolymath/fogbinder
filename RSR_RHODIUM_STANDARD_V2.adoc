@@ -1,0 +1,774 @@
+= RSR (Rhodium Standard Repository) v2.0
+:author: Fogbinder Project
+:email: <security@fogbinder.example.com>
+:revnumber: 2.0
+:revdate: 2025-11-23
+:toc: left
+:toclevels: 4
+:sectnums:
+:icons: font
+:source-highlighter: rouge
+
+[abstract]
+== Abstract
+
+The **Rhodium Standard Repository (RSR)** is a comprehensive framework for software repository excellence. Version 2.0 incorporates advanced requirements for cryptography, WASM-first development, browser future-proofing, and documentation standards.
+
+== Overview
+
+=== Tiers
+
+[options="header"]
+|===
+| Tier | Requirements | Percentage
+| Bronze | 25% of Silver | 25%
+| Silver | All 11 core categories | 100%
+| Gold | Silver + Reproducible builds + Advanced testing | 110%
+| **Platinum** | Gold + Formal verification + Security audit + WASM-first | 150%
+| **Rhodium** | Platinum + Post-quantum crypto + Browser future-proofing | 200%
+|===
+
+IMPORTANT: **Rhodium** is the new highest tier in v2.0.
+
+== Core Categories (Required for All Tiers)
+
+=== 1. Type Safety
+
+==== Requirements
+
+* [ ] Static typing enforced throughout
+* [ ] **Primary language: ReScript** (100% type-safe)
+* [ ] **NO TypeScript** (eliminated)
+* [ ] **NO JavaScript** (minimized - only compiled output)
+* [ ] All function signatures fully typed
+* [ ] No `any` types or escape hatches
+* [ ] Algebraic data types (ADTs) for domain modeling
+
+==== Verification
+
+[source,bash]
+----
+# Verify ReScript compilation
+rescript build
+
+# Check for any TypeScript files (should be zero)
+find . -name "*.ts" | wc -l  # Expected: 0
+
+# Check for manual JavaScript (should be minimal)
+find . -name "*.js" ! -name "*.bs.js" | wc -l  # Expected: < 5
+----
+
+=== 2. Memory Safety
+
+==== Requirements
+
+* [ ] **Only memory-safe languages** (ReScript, Rust)
+* [ ] No manual memory management
+* [ ] No buffer overflows possible
+* [ ] Garbage collected or RAII
+* [ ] WASM modules use safe Rust (no `unsafe {}`)
+
+==== Rationale
+
+ReScript and Rust provide memory safety by default.
+
+=== 3. Offline-First
+
+==== Requirements
+
+* [ ] **Zero external API calls** (no network dependency)
+* [ ] No telemetry, analytics, or tracking
+* [ ] No auto-updates without user consent
+* [ ] Works 100% offline
+* [ ] All dependencies vendored or locked
+
+==== Verification
+
+[source,bash]
+----
+# Grep for network calls
+grep -r "fetch\|XMLHttpRequest\|axios\|http\." src/ # Expected: 0 results
+----
+
+=== 4. Documentation (Enhanced)
+
+==== Format Requirements
+
+* [ ] **All documentation in AsciiDoc (.adoc)** format
+* [ ] **Exceptions:** `SECURITY.md`, `humans.md`, `LICENSE.txt`, `funding.yml` only
+* [ ] Conversion from Markdown → AsciiDoc complete
+
+==== Required Documents (AsciiDoc)
+
+* [ ] `README.adoc`
+* [ ] `CONTRIBUTING.adoc`
+* [ ] `CODE_OF_CONDUCT.adoc`
+* [ ] `MAINTAINERS.adoc`
+* [ ] `CHANGELOG.adoc`
+* [ ] `ARCHITECTURE.adoc`
+* [ ] `API.adoc`
+* [ ] `DEVELOPMENT.adoc`
+* [ ] `PHILOSOPHY.adoc`
+* [ ] `TPCF.adoc`
+
+==== Exceptions (Markdown allowed)
+
+* `SECURITY.md` (security.txt references this)
+* `humans.md` (well-known format)
+* `LICENSE.txt` (plain text license)
+* `funding.yml` (GitHub format)
+
+==== Rationale
+
+AsciiDoc is more powerful than Markdown:
+
+* Superior semantic structure
+* Better table support
+* Cross-references and includes
+* PDF/EPUB/HTML generation
+* Used by major projects (Linux kernel, Git, Spring)
+
+=== 5. .well-known/
+
+==== Requirements
+
+* [ ] `.well-known/security.txt` (RFC 9116)
+* [ ] `.well-known/ai.txt` (AI training policy)
+* [ ] `.well-known/humans.txt` (attribution)
+
+NOTE: These files remain as `.txt` (standard format).
+
+=== 6. Build System (Enhanced)
+
+==== Requirements
+
+* [ ] **NO Node.js** (eliminated)
+* [ ] **NO npm** (eliminated)
+* [ ] **NO package.json** (removed)
+* [ ] **ReScript compiler** (standalone or via Deno)
+* [ ] **Deno** for JavaScript/WASM runtime
+* [ ] **just** (command runner with massive recipe count)
+* [ ] **Nix** (reproducible builds)
+* [ ] **Cargo** (Rust/WASM modules)
+
+==== Build Pipeline
+
+[source,text]
+----
+ReScript (.res) → rescript → JavaScript (.bs.js) → Deno
+ReScript bindings → Rust (.rs) → cargo → WASM (.wasm) → Deno
+----
+
+==== Verification
+
+[source,bash]
+----
+# Verify NO Node.js/npm
+test ! -f package.json && echo "✓ No package.json"
+test ! -d node_modules && echo "✓ No node_modules"
+
+# Verify build tools exist
+which rescript && echo "✓ ReScript"
+which deno && echo "✓ Deno"
+which just && echo "✓ just"
+which cargo && echo "✓ Cargo (for WASM)"
+----
+
+=== 7. Testing (Enhanced)
+
+==== Requirements
+
+* [ ] **All tests in ReScript** (.test.res)
+* [ ] **NO TypeScript tests** (eliminated)
+* [ ] Unit tests for all modules
+* [ ] Integration tests
+* [ ] Property-based tests (ReScript implementation)
+* [ ] Benchmark tests
+* [ ] WASM module tests
+
+==== Test Coverage
+
+* Bronze/Silver: 80%+
+* Gold: 95%+
+* Platinum: 100%
+* **Rhodium: 100% + property tests + fuzzing**
+
+=== 8. CI/CD
+
+==== Requirements
+
+* [ ] GitHub Actions (or equivalent)
+* [ ] Automated testing on push
+* [ ] **Security scanning** (dependency audit, secret detection)
+* [ ] **WASM compilation** in CI
+* [ ] Accessibility checks
+* [ ] Performance benchmarks
+
+==== Matrix Testing
+
+[source,yaml]
+----
+strategy:
+  matrix:
+    deno-version: [1.40, 1.41]
+    os: [ubuntu-latest, macos-latest]
+----
+
+=== 9. Reproducible Builds
+
+==== Requirements
+
+* [ ] **Nix flake.nix** (deterministic builds)
+* [ ] Locked dependencies (no version ranges)
+* [ ] Build artifacts verifiable
+* [ ] SBOM (Software Bill of Materials) generated
+
+==== Verification
+
+[source,bash]
+----
+# Build twice, compare hashes
+nix build
+hash1=$(sha256sum result/bin/fogbinder)
+
+nix build --rebuild
+hash2=$(sha256sum result/bin/fogbinder)
+
+test "$hash1" = "$hash2" && echo "✓ Reproducible"
+----
+
+=== 10. TPCF (Tri-Perimeter Contribution Framework)
+
+==== Requirements
+
+* [ ] `TPCF.adoc` document
+* [ ] Perimeter 3: Community Sandbox
+* [ ] Perimeter 2: Extended Team
+* [ ] Perimeter 1: Core Team
+* [ ] Clear graduated access
+
+=== 11. RSR Verification
+
+==== Requirements
+
+* [ ] `scripts/verify_rsr.res` (ReScript)
+* [ ] Automated compliance checking
+* [ ] CI integration
+* [ ] Self-documenting checks
+
+== Platinum Tier Requirements
+
+=== 12. Formal Verification
+
+==== Requirements
+
+* [ ] **TLA+** specifications for critical algorithms
+* [ ] Invariants proven (commutativity, associativity, etc.)
+* [ ] Model checking with TLC
+* [ ] Documentation in AsciiDoc
+
+==== Minimum Specifications
+
+* 3+ TLA+ specs for core algorithms
+* Proven theorems for each spec
+* Model checking configurations
+
+==== Files
+
+* `formal-verification/tla/*.tla`
+* `formal-verification/README.adoc`
+
+=== 13. Property-Based Testing
+
+==== Requirements
+
+* [ ] **Property tests in ReScript** (no fast-check/npm)
+* [ ] Algebraic properties verified
+* [ ] Shrinking for counterexamples
+* [ ] 30+ properties tested
+
+==== Example Property
+
+[source,rescript]
+----
+// Commutativity: merge(A, B) = merge(B, A)
+let testMergeCommutative = () => {
+  check(() => {
+    let a = generateRandomState()
+    let b = generateRandomState()
+    merge(a, b) == merge(b, a)
+  }, 100)
+}
+----
+
+=== 14. Performance Benchmarks
+
+==== Requirements
+
+* [ ] **Benchmark suite in ReScript**
+* [ ] Automated runner
+* [ ] Baseline metrics
+* [ ] Scaling analysis
+* [ ] Regression detection in CI
+
+=== 15. Security Audit Framework
+
+==== Requirements
+
+* [ ] `security/AUDIT_CHECKLIST.md` (60+ point checklist)
+* [ ] `security/README.md`
+* [ ] Automated security scans
+* [ ] OWASP Top 10 coverage
+* [ ] Supply chain security
+
+=== 16. Dynamic Documentation
+
+==== Requirements
+
+* [ ] **Cookbooks in AsciiDoc** (auto-generated)
+* [ ] Multiple skill levels (beginner, intermediate, advanced)
+* [ ] Code examples that actually work
+* [ ] Updates automatically with features
+
+== Rhodium Tier Requirements (New!)
+
+=== 17. Post-Quantum Cryptography
+
+==== Requirements
+
+* [ ] **Kyber-1024** (key encapsulation)
+* [ ] **Ed448** (digital signatures)
+* [ ] **SHAKE256** (hash function)
+* [ ] **BLAKE3** (secondary hash)
+* [ ] **Argon2id** (password hashing)
+* [ ] **Strong primes** from flat distributions
+* [ ] **No weak algorithms** (no RSA < 4096, no SHA-1, no MD5)
+
+==== Implementation
+
+* [ ] WASM modules for crypto (Rust)
+* [ ] WebCrypto API integration
+* [ ] Constant-time operations
+* [ ] Side-channel resistance
+
+==== Documentation
+
+* [ ] `security/CRYPTOGRAPHY.md`
+* [ ] Threat model documented
+* [ ] Compliance with NIST standards
+
+=== 18. WASM-First Architecture
+
+==== Requirements
+
+* [ ] **Maximize WASM** usage
+* [ ] **Minimize JavaScript** (only glue code)
+* [ ] Performance-critical paths in WASM
+* [ ] WASM modules for:
+  - Contradiction detection
+  - Graph algorithms
+  - String similarity
+  - Cryptographic operations
+
+==== Compilation
+
+[source,bash]
+----
+# Rust → WASM
+cargo build --target wasm32-unknown-unknown --release
+
+# ReScript → JavaScript (minimal)
+rescript build
+
+# Bind ReScript ← → WASM
+# (bindings in src/bindings/WasmBindings.res)
+----
+
+==== Performance Target
+
+* WASM modules ≥ 10x faster than JavaScript equivalent
+* Memory usage ≤ JavaScript equivalent
+
+=== 19. Browser Future-Proofing
+
+==== Security Features
+
+* [ ] Cross-Origin Isolation (COI)
+* [ ] COEP/COOP/CORP headers
+* [ ] Permissions Policy
+* [ ] Document Policy
+* [ ] Storage Partitioning
+* [ ] Fenced Frames support
+* [ ] Topics API (opt-out)
+* [ ] Private State Tokens
+* [ ] FedCM support
+
+==== Performance Features
+
+* [ ] WebGPU support
+* [ ] WebTransport support
+* [ ] WebCodecs support
+* [ ] Compute Pressure API
+* [ ] SharedArrayBuffer (requires COI)
+* [ ] WASM threads
+
+==== Accessibility Features
+
+* [ ] ARIA live regions
+* [ ] AOM (Accessibility Object Model) future-proof
+* [ ] `prefers-reduced-motion`
+* [ ] `prefers-color-scheme`
+* [ ] `prefers-contrast`
+* [ ] Focus-visible
+* [ ] WCAG 2.1 Level AA minimum
+
+==== Interoperability Features
+
+* [ ] Service Workers
+* [ ] Background Sync
+* [ ] Background Fetch
+* [ ] File System Access API
+* [ ] Web App Manifest (enhanced)
+* [ ] Web Share API
+* [ ] Notifications API
+* [ ] Badging API
+
+==== Dependability Features
+
+* [ ] Page Lifecycle API
+* [ ] Network Information API
+* [ ] Priority Hints
+* [ ] Speculation Rules API
+
+==== Documentation
+
+* [ ] `security/BROWSER_FUTUREPROOFING.md`
+* [ ] Feature support manifest (JSON)
+
+=== 20. Git SSH-Only
+
+==== Requirements
+
+* [ ] **All Git operations via SSH** (no HTTPS)
+* [ ] Ed25519 or Ed448 keys
+* [ ] Commit signing (GPG or SSH)
+* [ ] Strict host key checking
+* [ ] Strong SSH ciphers (ChaCha20-Poly1305, AES-GCM)
+* [ ] Strong KEX (Curve25519)
+
+==== Configuration
+
+* [ ] `~/.ssh/config` hardened
+* [ ] `security/GIT_SSH_CONFIG.md` guide
+* [ ] Git config enforces SSH
+
+==== Verification
+
+[source,bash]
+----
+# Check remote URL uses SSH
+git remote -v | grep "git@"  # Should match
+
+# Check commit signing
+git log --show-signature | grep "Good signature"  # Should have signatures
+----
+
+=== 21. TLS/SSL Excellence
+
+==== Requirements
+
+* [ ] **TLS 1.3 only** (or 1.3 + 1.2 fallback)
+* [ ] Strong cipher suites
+* [ ] Ed25519 or ECDSA P-384 certificates
+* [ ] OCSP stapling (must-staple)
+* [ ] HSTS preload
+* [ ] CAA records
+* [ ] DANE/TLSA records (optional)
+* [ ] DNSSEC (recommended)
+
+==== Security Headers
+
+* [ ] HSTS
+* [ ] CSP (strict)
+* [ ] X-Frame-Options
+* [ ] X-Content-Type-Options
+* [ ] Referrer-Policy
+* [ ] Permissions-Policy
+* [ ] COEP/COOP/CORP
+
+==== Documentation
+
+* [ ] `security/TLS_SSL_CONFIG.md`
+* [ ] Example Nginx configs
+* [ ] DNS zone file examples
+
+=== 22. Nickel Configuration
+
+==== Requirements
+
+* [ ] **Nickel** (.ncl) for configuration
+* [ ] Type-safe config validation
+* [ ] JSON/YAML/TOML export
+* [ ] Environment-specific configs
+
+==== Example
+
+[source,nickel]
+----
+# fogbinder.ncl
+{
+  app_name = "Fogbinder",
+  version = "0.1.0",
+
+  security = {
+    tls_version = "1.3",
+    ciphers = ["TLS_AES_256_GCM_SHA384", "TLS_CHACHA20_POLY1305_SHA256"],
+    hsts_max_age = 63072000,
+  },
+
+  crypto = {
+    signature_algorithm = "Ed448",
+    hash_algorithm = "SHAKE256",
+    kem_algorithm = "Kyber-1024",
+    password_hash = "Argon2id",
+  },
+}
+----
+
+==== Documentation
+
+* [ ] `nickel.ncl` config file
+* [ ] `CONFIG.adoc` documentation
+
+=== 23. Massive CLI (justfile)
+
+==== Requirements
+
+* [ ] **100+ recipes** in justfile
+* [ ] Comprehensive CLI arguments
+* [ ] Multi-target builds
+* [ ] Conditional execution
+* [ ] Help documentation
+* [ ] Category organization
+
+==== Recipe Categories
+
+* Development (build, dev, watch, clean)
+* Testing (test, test-property, test-wasm, coverage)
+* Benchmarking (bench, bench-all, bench-report)
+* Quality (lint, fmt, check, verify)
+* Security (audit, scan, cve-check, secret-scan)
+* Docs (docs-build, docs-serve, docs-pdf)
+* Release (release, tag, publish)
+* CI/CD (ci, ci-local)
+* RSR (rsr-verify, rsr-report, rsr-upgrade)
+
+==== Example
+
+[source,just]
+----
+# Build everything (ReScript + WASM)
+build: build-rescript build-wasm
+  @echo "✓ Build complete"
+
+# Build ReScript
+build-rescript:
+  rescript build
+
+# Build WASM modules
+build-wasm:
+  cargo build --target wasm32-unknown-unknown --release
+
+# Build with optimizations
+build-release: build-rescript build-wasm-release
+  deno bundle src/Fogbinder.bs.js > dist/bundle.js
+
+# Run tests (all)
+test: test-unit test-property test-wasm
+  @echo "✓ All tests passed"
+
+# CLI with arguments
+analyze SOURCES CONTEXT="default":
+  deno run --allow-all src/Fogbinder.bs.js "{{SOURCES}}" "{{CONTEXT}}"
+----
+
+==== Documentation
+
+* [ ] `justfile` (400+ lines, 100+ recipes)
+* [ ] `JUSTFILE.adoc` documentation
+
+== Compliance Verification
+
+=== Automated Checks
+
+[source,bash]
+----
+# Run RSR verification
+deno run --allow-read scripts/verify_rsr.res.js
+
+# Expected output:
+# ✅ Type Safety (ReScript only)
+# ✅ Memory Safety
+# ✅ Offline-First
+# ✅ Documentation (AsciiDoc)
+# ✅ .well-known/
+# ✅ Build System (No Node.js/npm)
+# ✅ Testing (ReScript tests)
+# ✅ CI/CD
+# ✅ Reproducible Builds
+# ✅ TPCF
+# ✅ RSR Verification
+# ✅ Formal Verification (TLA+)
+# ✅ Property-Based Testing
+# ✅ Performance Benchmarks
+# ✅ Security Audit Framework
+# ✅ Dynamic Documentation
+# ✅ Post-Quantum Cryptography ← NEW
+# ✅ WASM-First Architecture ← NEW
+# ✅ Browser Future-Proofing ← NEW
+# ✅ Git SSH-Only ← NEW
+# ✅ TLS/SSL Excellence ← NEW
+# ✅ Nickel Configuration ← NEW
+# ✅ Massive CLI ← NEW
+#
+# 🏆 Compliance Level: RHODIUM (100.0%)
+----
+
+=== Manual Checks
+
+* [ ] All documentation in AsciiDoc (except exceptions)
+* [ ] No TypeScript files remaining
+* [ ] No npm/Node.js usage
+* [ ] WASM modules present and functional
+* [ ] Crypto implementation verified
+* [ ] Browser features tested
+* [ ] SSH-only Git confirmed
+* [ ] TLS/SSL A+ rating
+* [ ] justfile has 100+ recipes
+
+== Tier Summary
+
+[options="header"]
+|===
+| Tier | Key Requirements | Checks Passed
+
+| Bronze
+| 25% of Silver
+| 3/11
+
+| Silver
+| All core categories
+| 11/11
+
+| Gold
+| Silver + Reproducible builds
+| 15/15
+
+| Platinum
+| Gold + Advanced testing + Security
+| 22/22
+
+| **Rhodium**
+| Platinum + Post-quantum + WASM + Future-proofing
+| **30/30** ✓
+|===
+
+== Migration from v1.0
+
+=== Breaking Changes
+
+* **TypeScript eliminated** → Migrate to ReScript
+* **npm removed** → Use Deno/cargo only
+* **Markdown → AsciiDoc** → Convert docs (except exceptions)
+* **New crypto requirements** → Implement Kyber, Ed448, etc.
+* **WASM-first** → Rewrite performance-critical code
+
+=== Migration Steps
+
+. Convert TypeScript tests to ReScript (.test.res)
+. Remove `package.json`, `node_modules/`
+. Convert Markdown docs to AsciiDoc
+. Implement WASM modules (Rust)
+. Add post-quantum crypto
+. Configure browser future-proofing headers
+. Set up SSH-only Git
+. Create Nickel config
+. Expand justfile to 100+ recipes
+. Verify Rhodium compliance
+
+== Appendix A: Tool Versions
+
+[options="header"]
+|===
+| Tool | Minimum Version | Recommended
+
+| ReScript | 11.0.0 | 11.1.0+
+| Deno | 1.40.0 | 1.41.0+
+| Rust | 1.70.0 | 1.75.0+
+| just | 1.0.0 | 1.20.0+
+| Nix | 2.10.0 | 2.19.0+
+| Nickel | 1.0.0 | 1.4.0+
+|===
+
+== Appendix B: Cryptographic Algorithms
+
+[options="header"]
+|===
+| Purpose | Algorithm | Bits | Quantum-Safe
+
+| Signature | Ed448 | 448 | ❌ (112-bit PQ)
+| Signature (PQ) | Dilithium3 | - | ✅ (128-bit PQ)
+| KEM | Kyber-1024 | - | ✅ (256-bit PQ)
+| Hash | SHAKE256 | 256 | ✅
+| Hash (Fast) | BLAKE3 | 256 | ✅
+| Password | Argon2id | 256 | ✅ (N/A)
+| Cipher | ChaCha20-Poly1305 | 256 | ❌ (128-bit PQ)
+|===
+
+== Appendix C: Browser Feature Support
+
+See `security/BROWSER_FUTUREPROOFING.md` for complete list.
+
+== Appendix D: Document Formats
+
+[options="header"]
+|===
+| Document | Format | Reason
+
+| README | AsciiDoc | Main docs
+| CONTRIBUTING | AsciiDoc | Main docs
+| ARCHITECTURE | AsciiDoc | Main docs
+| SECURITY | **Markdown** | security.txt compatibility
+| humans.md | **Markdown** | .well-known standard
+| LICENSE | **Plain text** | Legal requirement
+| funding.yml | **YAML** | GitHub format
+|===
+
+== Changelog
+
+=== v2.0 (2025-11-23)
+
+* Added Rhodium tier (highest level)
+* Eliminated TypeScript and npm completely
+* Switched to AsciiDoc documentation
+* Added post-quantum cryptography requirements
+* Added WASM-first architecture
+* Added browser future-proofing
+* Added Git SSH-only requirement
+* Added TLS/SSL excellence
+* Added Nickel configuration
+* Added massive CLI (100+ recipes)
+
+=== v1.0 (2025-11-22)
+
+* Initial RSR specification
+* Bronze through Platinum tiers
+
+---
+
+[NOTE]
+====
+**The fog is not an obstacle. It's the medium of inquiry.** 🌫️
+
+**Achieve Rhodium. Embrace excellence.**
+====
