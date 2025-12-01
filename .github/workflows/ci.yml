@@ -33,6 +33,7 @@ jobs:
     - name: Setup Rust (for WASM)
       uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # master 2025-11-30
       with:
+        toolchain: stable
         targets: wasm32-unknown-unknown
 
     - name: Install ReScript
@@ -231,6 +232,7 @@ jobs:
     - name: Setup Rust
       uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # master 2025-11-30
       with:
+        toolchain: stable
         targets: wasm32-unknown-unknown
 
     - name: Install ReScript
