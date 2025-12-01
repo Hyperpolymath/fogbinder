@@ -21,13 +21,5 @@
   "namespace": true,
   "refmt": 3,
   "ppx-flags": [],
-  "bsc-flags": ["-bs-no-version-header", "-bs-g"],
-  "gentypeconfig": {
-    "language": "typescript",
-    "shims": {},
-    "debug": {
-      "all": false,
-      "basic": false
-    }
-  }
+  "bsc-flags": ["-bs-no-version-header", "-bs-g"]
 }
