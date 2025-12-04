@@ -28,7 +28,7 @@ jobs:
         deno-version: ${{ matrix.deno-version }}
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Setup Rust (for WASM)
       uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # master 2025-11-30
@@ -69,7 +69,7 @@ jobs:
         deno-version: '1.x'
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Install ReScript
       run: npm install -g rescript@latest
@@ -97,7 +97,7 @@ jobs:
         deno-version: '1.x'
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Security audit
       run: just security-audit
@@ -126,7 +126,7 @@ jobs:
         deno-version: '1.x'
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Verify RSR Rhodium compliance
       run: just verify-rsr
@@ -149,7 +149,7 @@ jobs:
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Check accessibility
       run: just a11y
@@ -208,7 +208,7 @@ jobs:
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Verify philosophical foundations
       run: just philosophy
@@ -227,7 +227,7 @@ jobs:
         deno-version: '1.x'
 
     - name: Setup just
-      uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+      uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff # v3.0.0
 
     - name: Setup Rust
       uses: dtolnay/rust-toolchain@0b1efabc08b657293548b77fb76cc02d26091c7e # master 2025-11-30
