@@ -1,6 +1,11 @@
 # Fogbinder Language Classification for GitHub Linguist
 # RSR Rhodium Standard Repository - ReScript + WASM + Deno
 
+# ⛔ NO TYPESCRIPT - Exclude ALL .ts/.tsx files (including git history)
+# RSR Rhodium R13 mandates ZERO TypeScript in codebase
+*.ts linguist-vendored=true
+*.tsx linguist-vendored=true
+
 # ReScript files (primary language)
 *.res linguist-language=ReScript
 *.resi linguist-language=ReScript
