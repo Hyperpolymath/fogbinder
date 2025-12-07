@@ -1,0 +1,62 @@
+# Fogbinder Language Classification for GitHub Linguist
+# RSR Rhodium Standard Repository - ReScript + WASM + Deno
+
+# ⛔ NO TYPESCRIPT - Exclude ALL .ts/.tsx files (including git history)
+# RSR Rhodium R13 mandates ZERO TypeScript in codebase
+*.ts linguist-vendored=true
+*.tsx linguist-vendored=true
+
+# ReScript files (primary language)
+*.res linguist-language=ReScript
+*.resi linguist-language=ReScript
+
+# ReScript generated JavaScript files (exclude from stats)
+*.bs.js linguist-generated=true
+
+# TLA+ formal verification specs
+*.tla linguist-language=TLA
+
+# Rust WASM modules
+*.rs linguist-language=Rust
+
+# Deno configuration
+deno.json linguist-language=JSON
+deno.jsonc linguist-language=JSONC
+
+# ReScript configuration
+bsconfig.json linguist-language=JSON
+
+# Nickel configuration language
+*.ncl linguist-language=Nickel
+
+# Justfile build system
+justfile linguist-language=Just
+
+# AsciiDoc documentation
+*.adoc linguist-documentation=true linguist-language=AsciiDoc
+
+# Markdown (exceptions only)
+*.md linguist-documentation=true
+
+# Exclude from language stats
+.github/workflows/*.yml linguist-vendored=true
+docs/* linguist-documentation=true
+examples/* linguist-documentation=true
+benchmarks/* linguist-vendored=true
+scripts/* linguist-vendored=true
+
+# Git LFS (for large assets if needed)
+*.wasm filter=lfs diff=lfs merge=lfs -text
+
+# Line endings
+* text=auto
+*.res text eol=lf
+*.resi text eol=lf
+*.rs text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.adoc text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+*.tla text eol=lf

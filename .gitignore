@@ -1,0 +1,33 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# ReScript
+lib/
+*.bs.js
+.bsb.lock
+.merlin
+
+# Deno
+.deno/
+deno.lock
+
+# Build outputs
+dist/
+build/
+*.wasm
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Rust build artifacts
+src/wasm/target/
+src/wasm/Cargo.lock
