@@ -1,33 +1,79 @@
-node_modules/
-.env
-*.log
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# RSR-compliant .gitignore
+
+# OS & Editor
 .DS_Store
-
-# ReScript
-lib/
-*.bs.js
-.bsb.lock
-.merlin
-
-# Deno
-.deno/
-deno.lock
-
-# Build outputs
-dist/
-build/
-*.wasm
-
-# IDE
-.vscode/
-.idea/
+Thumbs.db
 *.swp
 *.swo
+*~
+.idea/
+.vscode/
 
-# Test coverage
-coverage/
-.nyc_output/
+# Build
+/target/
+/_build/
+/build/
+/dist/
+/out/
 
-# Rust build artifacts
-src/wasm/target/
-src/wasm/Cargo.lock
+# Dependencies
+/node_modules/
+/vendor/
+/deps/
+/.elixir_ls/
+
+# Rust
+# Cargo.lock  # Keep for binaries
+
+# Elixir
+/cover/
+/doc/
+*.ez
+erl_crash.dump
+
+# Julia
+*.jl.cov
+*.jl.mem
+/Manifest.toml
+
+# ReScript
+/lib/bs/
+/.bsb.lock
+
+# Python (SaltStack only)
+__pycache__/
+*.py[cod]
+.venv/
+
+# Ada/SPARK
+*.ali
+/obj/
+/bin/
+
+# Haskell
+/.stack-work/
+/dist-newstyle/
+
+# Chapel
+*.chpl.tmp.*
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+secrets/
+
+# Test/Coverage
+/coverage/
+htmlcov/
+
+# Logs
+*.log
+/logs/
+
+# Temp
+/tmp/
+*.tmp
+*.bak
