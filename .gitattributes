@@ -1,62 +1,54 @@
-# Fogbinder Language Classification for GitHub Linguist
-# RSR Rhodium Standard Repository - ReScript + WASM + Deno
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# RSR-compliant .gitattributes
 
-# ⛔ NO TYPESCRIPT - Exclude ALL .ts/.tsx files (including git history)
-# RSR Rhodium R13 mandates ZERO TypeScript in codebase
-*.ts linguist-vendored=true
-*.tsx linguist-vendored=true
+* text=auto eol=lf
 
-# ReScript files (primary language)
-*.res linguist-language=ReScript
-*.resi linguist-language=ReScript
+# Source
+*.rs    text eol=lf diff=rust
+*.ex    text eol=lf diff=elixir
+*.exs   text eol=lf diff=elixir
+*.jl    text eol=lf
+*.res   text eol=lf
+*.resi  text eol=lf
+*.ada   text eol=lf diff=ada
+*.adb   text eol=lf diff=ada
+*.ads   text eol=lf diff=ada
+*.hs    text eol=lf
+*.chpl  text eol=lf
+*.scm   text eol=lf
+*.ncl   text eol=lf
+*.nix   text eol=lf
 
-# ReScript generated JavaScript files (exclude from stats)
-*.bs.js linguist-generated=true
+# Docs
+*.md    text eol=lf diff=markdown
+*.adoc  text eol=lf
+*.txt   text eol=lf
 
-# TLA+ formal verification specs
-*.tla linguist-language=TLA
+# Data
+*.json  text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.toml  text eol=lf
 
-# Rust WASM modules
-*.rs linguist-language=Rust
+# Config
+.gitignore     text eol=lf
+.gitattributes text eol=lf
+justfile       text eol=lf
+Makefile       text eol=lf
+Containerfile  text eol=lf
 
-# Deno configuration
-deno.json linguist-language=JSON
-deno.jsonc linguist-language=JSONC
+# Scripts
+*.sh   text eol=lf
 
-# ReScript configuration
-bsconfig.json linguist-language=JSON
+# Binary
+*.png   binary
+*.jpg   binary
+*.gif   binary
+*.pdf   binary
+*.woff2 binary
+*.zip   binary
+*.gz    binary
 
-# Nickel configuration language
-*.ncl linguist-language=Nickel
-
-# Justfile build system
-justfile linguist-language=Just
-
-# AsciiDoc documentation
-*.adoc linguist-documentation=true linguist-language=AsciiDoc
-
-# Markdown (exceptions only)
-*.md linguist-documentation=true
-
-# Exclude from language stats
-.github/workflows/*.yml linguist-vendored=true
-docs/* linguist-documentation=true
-examples/* linguist-documentation=true
-benchmarks/* linguist-vendored=true
-scripts/* linguist-vendored=true
-
-# Git LFS (for large assets if needed)
-*.wasm filter=lfs diff=lfs merge=lfs -text
-
-# Line endings
-* text=auto
-*.res text eol=lf
-*.resi text eol=lf
-*.rs text eol=lf
-*.js text eol=lf
-*.json text eol=lf
-*.adoc text eol=lf
-*.md text eol=lf
-*.sh text eol=lf
-*.yml text eol=lf
-*.tla text eol=lf
+# Lock files
+Cargo.lock  text eol=lf -diff
+flake.lock  text eol=lf -diff
