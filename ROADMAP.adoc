@@ -1,0 +1,375 @@
+= Fogbinder Roadmap
+:toc: macro
+:toc-title: Contents
+:toclevels: 3
+:sectnums:
+:icons: font
+
+**Last Updated:** 2025-12-17 +
+**Version:** 0.1.0 (Pre-release) +
+**Status:** Active Development
+
+toc::[]
+
+== Overview
+
+Fogbinder is a Zotero plugin designed to illuminate contradiction, emotional tone, and unresolved ambiguity within citations. This roadmap outlines the development trajectory from pre-release to stable v1.0.
+
+== Current Status
+
+=== Achievements
+
+[cols="1,3,1"]
+|===
+| Area | Status | Completion
+
+| **Core Engine**
+| ReScript implementation complete with property-based tests
+| 90%
+
+| **Philosophy Integration**
+| Wittgenstein + Austin frameworks implemented
+| 85%
+
+| **RSR Compliance**
+| Rhodium tier (200%) achieved
+| 100%
+
+| **Security Infrastructure**
+| All 14 CI workflows, SHA-pinned actions, TruffleHog integration
+| 95%
+
+| **Documentation**
+| 27 root documents, comprehensive guides
+| 90%
+
+| **Zotero Integration**
+| Mock API implemented, production bindings pending
+| 40%
+
+| **WASM Modules**
+| Rust modules defined, compilation pipeline pending
+| 30%
+|===
+
+=== Known Limitations
+
+* Mock Zotero API (requires production integration)
+* 2 remaining JavaScript files pending ReScript conversion
+* External security audit not yet performed
+* WASM modules not yet compiled
+
+== Phase 1: Foundation Completion (v0.2.0)
+
+=== Code Migration
+
+* [ ] Convert `src/main.js` to ReScript entry point
+* [ ] Convert `src/zotero/zotero_api.js` to ReScript bindings
+* [ ] Achieve 100% ReScript codebase
+* [ ] Update all imports and build configuration
+
+=== WASM Integration
+
+* [ ] Compile Rust WASM modules:
+  - `crypto/` - Ed448, Kyber-1024, SHAKE256
+  - `contradiction_detector/` - High-performance analysis
+  - `string_similarity/` - Fuzzy matching
+  - `graph_algorithms/` - Network analysis
+* [ ] Integrate WASM with ReScript via bindings
+* [ ] Add WASM-specific security sandboxing
+* [ ] Performance benchmarks vs pure ReScript
+
+=== Testing Enhancement
+
+* [ ] Increase property-based test coverage to 95%
+* [ ] Add integration tests for full analysis pipeline
+* [ ] Add regression test suite
+* [ ] Implement mutation testing
+
+== Phase 2: Zotero Production Integration (v0.3.0)
+
+=== Zotero Plugin Development
+
+* [ ] Replace mock API with real Zotero bindings
+* [ ] Implement read-only Zotero library access
+* [ ] Add collection/item selection UI
+* [ ] Implement result annotation storage
+* [ ] Create Zotero preferences panel
+
+=== UI/UX Development
+
+* [ ] Design FogTrail visualization component
+* [ ] Implement contradiction graph viewer
+* [ ] Add mood score timeline visualization
+* [ ] Create mystery cluster explorer
+* [ ] Ensure WCAG 2.1 AA compliance throughout
+
+=== Documentation
+
+* [ ] Write Zotero plugin installation guide
+* [ ] Create user manual with screenshots
+* [ ] Add API documentation for developers
+* [ ] Create video tutorials
+
+== Phase 3: Security Hardening (v0.4.0)
+
+=== External Security Audit
+
+* [ ] Engage security firm (Cure53 or similar)
+* [ ] Perform code review audit
+* [ ] Address all critical/high findings
+* [ ] Document audit results and mitigations
+
+=== Penetration Testing
+
+* [ ] Schedule penetration test
+* [ ] Test Zotero integration boundaries
+* [ ] Test WASM module isolation
+* [ ] Test input sanitization
+
+=== Supply Chain Security
+
+* [ ] Implement SBOM (Software Bill of Materials)
+* [ ] Add dependency scanning (Dependabot alerts)
+* [ ] Implement SLSA Level 2 attestations
+* [ ] Set up Sigstore signing
+
+=== SAST/DAST Implementation
+
+* [ ] Enable CodeQL advanced queries
+* [ ] Add Semgrep rules for ReScript patterns
+* [ ] Implement runtime security monitoring
+* [ ] Add CSP violation reporting
+
+== Phase 4: Performance Optimization (v0.5.0)
+
+=== Profiling & Benchmarking
+
+* [ ] Profile full analysis pipeline
+* [ ] Identify performance bottlenecks
+* [ ] Benchmark against large citation libraries (1000+ items)
+* [ ] Create performance regression tests
+
+=== Optimizations
+
+* [ ] Optimize WASM module loading (lazy loading)
+* [ ] Implement result caching
+* [ ] Add incremental analysis support
+* [ ] Optimize FogTrail graph rendering
+
+=== Memory Management
+
+* [ ] Profile memory usage patterns
+* [ ] Implement streaming for large datasets
+* [ ] Add memory usage limits
+* [ ] Document memory requirements
+
+== Phase 5: Formal Verification (v0.6.0)
+
+=== TLA+ Specifications
+
+* [ ] Complete core algorithm specifications
+* [ ] Verify contradiction detection invariants
+* [ ] Verify mood scoring consistency
+* [ ] Verify graph algorithm correctness
+
+=== Property Testing Expansion
+
+* [ ] Add stateful property tests
+* [ ] Implement model checking
+* [ ] Add fuzzing for input parsing
+* [ ] Document verification coverage
+
+== Phase 6: Ecosystem Integration (v0.7.0)
+
+=== Export Formats
+
+* [ ] Export to Markdown (analysis reports)
+* [ ] Export to CSV (tabular data)
+* [ ] Export to GraphML (network graphs)
+* [ ] Export to BibTeX (annotated citations)
+
+=== Integration APIs
+
+* [ ] REST API for external tools
+* [ ] CLI interface for batch processing
+* [ ] WebSocket API for real-time analysis
+* [ ] Plugin SDK for extensions
+
+=== Localization
+
+* [ ] Implement i18n framework
+* [ ] Add translations (es, fr, de, zh)
+* [ ] Localize UI and documentation
+* [ ] Add RTL language support
+
+== Phase 7: Beta Release (v0.9.0)
+
+=== Beta Testing Program
+
+* [ ] Recruit beta testers from academic community
+* [ ] Set up feedback collection system
+* [ ] Create issue triage process
+* [ ] Document known issues
+
+=== Documentation Finalization
+
+* [ ] Complete all user documentation
+* [ ] Finalize API reference
+* [ ] Create troubleshooting guide
+* [ ] Update CHANGELOG comprehensively
+
+=== Release Preparation
+
+* [ ] Create release checklist
+* [ ] Prepare announcement materials
+* [ ] Set up support channels
+* [ ] Document upgrade path
+
+== Phase 8: Stable Release (v1.0.0)
+
+=== Requirements
+
+[NOTE]
+====
+All items must be completed before v1.0.0 release:
+
+* 100% ReScript codebase (no TS/JS)
+* All WASM modules compiled and integrated
+* External security audit completed with no critical findings
+* Performance benchmarks meet targets
+* Full documentation coverage
+* Beta testing feedback addressed
+* All planned features implemented
+====
+
+=== Release Activities
+
+* [ ] Final security review
+* [ ] Performance validation
+* [ ] Documentation review
+* [ ] Create release notes
+* [ ] Tag v1.0.0 release
+* [ ] Publish to Zotero plugin repository
+* [ ] Announce release
+
+== Post-v1.0 Considerations
+
+=== Potential Future Features
+
+* NLP integration for advanced text analysis
+* Machine learning-assisted contradiction detection
+* Collaborative annotation support
+* Cloud sync (optional, privacy-preserving)
+* Browser extension companion
+
+=== Maintenance Commitments
+
+* Security patches within SLA timeframes
+* Quarterly dependency updates
+* Annual security audits
+* Ongoing documentation updates
+
+== Contributing
+
+See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for how to participate in development.
+
+=== Priority Areas for Contributors
+
+1. **ReScript Migration:** Convert remaining JS files
+2. **Testing:** Expand property-based test coverage
+3. **Documentation:** Improve user guides
+4. **Localization:** Add translations
+5. **Accessibility:** Enhance WCAG compliance
+
+== Version History
+
+[cols="1,2,3"]
+|===
+| Version | Date | Highlights
+
+| 0.1.0
+| 2025-11
+| Initial pre-release, core engine, RSR Rhodium compliance
+
+| 0.2.0
+| TBD
+| Full ReScript migration, WASM integration
+
+| 0.3.0
+| TBD
+| Zotero production integration
+
+| 0.4.0
+| TBD
+| Security hardening, external audit
+
+| 0.5.0
+| TBD
+| Performance optimization
+
+| 0.6.0
+| TBD
+| Formal verification
+
+| 0.7.0
+| TBD
+| Ecosystem integration
+
+| 0.9.0
+| TBD
+| Beta release
+
+| 1.0.0
+| TBD
+| Stable release
+|===
+
+== Security Milestones
+
+[cols="1,2,1"]
+|===
+| Milestone | Description | Status
+
+| SHA-pinned actions
+| All GitHub Actions use 40-char SHA pins
+| Done
+
+| SPDX headers
+| All workflows have license headers
+| Done
+
+| Permissions declarations
+| All workflows declare minimal permissions
+| Done
+
+| TruffleHog integration
+| Secret scanning in CI
+| Done
+
+| CodeQL analysis
+| Automated security scanning
+| Done
+
+| External audit
+| Third-party security review
+| Planned
+
+| Penetration testing
+| Security assessment
+| Planned
+
+| SBOM generation
+| Software bill of materials
+| Planned
+|===
+
+== Contact
+
+* **Project Lead:** Jonathan (Hyperpolymath)
+* **Repository:** https://github.com/Hyperpolymath/fogbinder
+* **Security Issues:** https://github.com/Hyperpolymath/fogbinder/security/advisories
+
+---
+
+_This roadmap is a living document and will be updated as the project evolves._
