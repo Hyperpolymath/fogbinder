@@ -175,7 +175,7 @@ See link:PHILOSOPHY.adoc[PHILOSOPHY.adoc] for philosophical foundations.
 
 Fogbinder is **dual-licensed** - you choose:
 
-=== Option 1: MIT License
+=== Option 1: Palimpsest-MPL-1.0 License
 
 Permissive license for maximum freedom.
 
